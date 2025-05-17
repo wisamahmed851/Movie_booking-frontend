@@ -1,74 +1,51 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
-  const [menuActive, setMenuActive] = useState(false);
-  const [headerActive, setHeaderActive] = useState(false);
-
-  const toggleMenu = () => setMenuActive(!menuActive);
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 50) {
-        setHeaderActive(true);
-      } else {
-        setHeaderActive(false);
-      }
-    };
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
   return (
-    <header className={`header-section ${headerActive ? 'header-active' : ''}`}>
-     <div className="container">
-       <div className="header-wrapper">
-        
-          {/* Logo */}
+    <header className="header-section">
+      <div className="container mx-auto px-4">
+        <div className="header-wrapper">
           <div className="logo">
             <Link to="/">
-              <img
-                src="/frontend/images/logo/logo.png" // Update this path as per your project
-                alt="logo"
-                className="h-10"
-              />
+              <img src="/frontend/images/logo/logo.png" alt="logo" />
             </Link>
           </div>
-        <ul className={`menu ${menuActive ? 'active' : ''}`}>
-          <li className="header-button">
-            <Link to="/">Home</Link>
-          </li>
-            <li className="header-button">
-              <Link to="/movie-grid">
-                Movie Grid
+          <ul className="menu">
+            <li>
+              <Link to="#0" className="active">
+                Home
               </Link>
             </li>
-          <li className="header-button">
-            <Link to="/about-us">About Us</Link>
-          </li>
-          <li className="header-button">
-            <Link to="/contact">Contact</Link>
-          </li>
-          <li className="header-button">
-            <Link to="/blog">Blog</Link>
-          </li>
-          
-        </ul>
-        {/* Sign In Button */}
-          <a
-            href="/login"
-            className="signupRegiste"
-          >
-            <i className="fas fa-user"></i>
-            <span>Sign in</span>
-          </a>
-          <div className={`header-bar ${menuActive ? 'active' : ''} `} onClick={toggleMenu}>
-          <span></span>
-          <span></span>
-          <span></span>
+            <li>
+              <Link to="#0">movies</Link>
+            </li>
+            <li>
+              <Link to="#0">events</Link>
+            </li>
+            <li>
+              <Link to="#0">sports</Link>
+            </li>
+            <li>
+              <Link to="#0">pages</Link>
+            </li>
+            <li>
+              <Link to="#0">blog</Link>
+            </li>
+            <li>
+              <Link to="/contact.html">contact</Link>
+            </li>
+            <li className="header-button pr-0">
+              <Link to="/sign-up.html">join us</Link>
+            </li>
+          </ul>
+          <div className="header-bar block lg:hidden">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
       </div>
-     </div>
     </header>
   );
 };
