@@ -4,27 +4,24 @@ import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
-    const { login } = useContext(AuthContext);
-    const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const data = await loginUser({
-            email,
-            password,
-        });
-        if (data) {
-            login(data);
-            navigate("/");
-        } else {
-            alert("Invalid Credentials");
-            setEmail("");
-            setPassword("");
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = await loginUser(email, password);
+    if (data) {
+      login(data);
+      navigate("/");
+    } else {
+      alert("Invalid Credentials");
+      setEmail("");
+      setPassword("");
     }
+  };
   useEffect(() => {
     const elements = document.querySelectorAll("[data-background]");
     elements.forEach((el) => {
