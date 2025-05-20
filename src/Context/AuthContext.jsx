@@ -1,28 +1,37 @@
 import { createContext, useState } from "react";
+import PropTypes from "prop-types";
 
 export const AuthContext = createContext();
 
-const Authprovider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
+    const userString = localStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : null;
     return { token, user };
   });
-    const login = (userData) => {
-        localStorage.setItem("token", userData.token);
-        localStorage.setItem("user", JSON.stringify(userData.user));
-        setAuth({ token: userData.token, user: userData.user });
-    };
-    const logout = () => {
-      localStorage.clear();
-      setAuth({ token: null, user: null });
-    };
 
-    return (
-        <AuthContext.Provider value={{ auth, login, logout }}>
-            {{children}}
-        </AuthContext.Provider>
-    )
+  const login = (userData) => {
+    localStorage.setItem("token", userData.token);
+    localStorage.setItem("user", JSON.stringify(userData.user));
+    setAuth({ token: userData.token, user: userData.user });
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setAuth({ token: null, user: null });
+  };
+
+  return (
+    <AuthContext.Provider value={{ auth, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export default Authprovider;
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default AuthProvider;
