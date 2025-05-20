@@ -1,11 +1,13 @@
 import { createContext, useState } from "react";
+import PropTypes from "prop-types";
 
 export const AuthContext = createContext();
 
-const Authprovider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
+    const userString = localStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : null;
     return { token, user };
   });
 
@@ -16,7 +18,8 @@ const Authprovider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setAuth({ token: null, user: null });
   };
 
@@ -27,4 +30,8 @@ const Authprovider = ({ children }) => {
   );
 };
 
-export default Authprovider;
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default AuthProvider;
