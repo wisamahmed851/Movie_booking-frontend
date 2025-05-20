@@ -1551,12 +1551,9 @@ input[type="submit"] {
 .header-section.header-active {
   background: #0a1e5e;
   border: none;
-  animation-name: fadeInDown;
-  -webkit-animation-name: fadeInDown;
-  -moz-animation-name: fadeInDown;
-  animation-duration: 1s;
-  -webkit-animation-duration: 1s;
-  -moz-animation-duration: 1s;
+  animation: fadeInDown 1s ease;
+  -webkit-animation: fadeInDown 1s ease;
+  -moz-animation: fadeInDown 1s ease;
 }
 
 .header-bar {

@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(false); // Force reset
+        setTimeout(() => setScrolled(true), 10); // Re-apply class
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="header-section">
+    <header
+      className={`header-section ${scrolled ? "header-active" : ""}`}
+    >
       <div className="container mx-auto px-4">
         <div className="header-wrapper">
           <div className="logo">

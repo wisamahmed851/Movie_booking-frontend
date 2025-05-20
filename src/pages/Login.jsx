@@ -12,6 +12,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    alert("Submit");
     const data = await loginUser(email, password);
     if (data) {
       login(data);
