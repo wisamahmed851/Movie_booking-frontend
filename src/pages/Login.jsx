@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { loginUser } from "../api/authApi";
 import { AuthContext } from "../Context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -9,13 +10,20 @@ const Login = () => {
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const showAlert = () => {
+    Swal.fire({
+      title: 'success!',
+      text: "Login Successfull",
+      icon: 'success',
+      confirmButtonText: "Ok"
+    });
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Submit");
     const data = await loginUser(email, password);
     if (data) {
       login(data);
+      showAlert();
       navigate("/");
     } else {
       alert("Invalid Credentials");
